@@ -654,6 +654,12 @@ dtb-$(CONFIG_SOC_AM33XX) += \
 	am335x-sbc-t335.dtb \
 	am335x-sl50.dtb \
 	am335x-wega-rdk.dtb
+dtb-$(CONFIG_SOC_AM33XX) += \
+	am335x-bone-evb.dtb \
+	am335x-boneblack-evb.dtb \
+	am335x-boneblack-evb-lms2012.dtb \
+	am335x-bonegreen-evb.dtb \
+	am335x-bonegreen-evb-lms2012.dtb
 dtb-$(CONFIG_ARCH_OMAP4) += \
 	omap4-droid4-xt894.dtb \
 	omap4-duovero-parlor.dtb \
