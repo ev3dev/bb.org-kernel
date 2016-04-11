@@ -1,7 +1,7 @@
 VERSION = 4
 PATCHLEVEL = 1
 SUBLEVEL = 18
-EXTRAVERSION = -ti-rt-r56-10-rc1-ev3dev-bb.org
+EXTRAVERSION = -ti-rt-r56-10-ev3dev-bb.org
 NAME = Series 4800
 
 # *DOCUMENTATION*
