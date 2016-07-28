@@ -83,7 +83,7 @@
 		io-channel-names = "voltage";
 	};
 
-	evb-ports {
+	evb_ports: evb-ports {
 		compatible = "ev3dev,evb-ports";
 
 		in1 {
