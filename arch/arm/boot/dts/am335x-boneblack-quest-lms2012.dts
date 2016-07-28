@@ -1,0 +1,10 @@
+/*
+ * Copyright (C) 2016 David Lechner <david@lechnology.com>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2 as
+ * published by the Free Software Foundation.
+ */
+
+#include "am335x-boneblack-quest.dts"
+#include "am335x-bone-quest-lms2012.dtsi"
