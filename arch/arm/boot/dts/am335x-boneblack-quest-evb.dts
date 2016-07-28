@@ -1,0 +1,135 @@
+/*
+ * Copyright (C) 2016 David Lechner <david@lechnology.com>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2 as
+ * published by the Free Software Foundation.
+ */
+
+#include "am335x-boneblack-evb.dts"
+
+&evb_adc_reg {
+	status = "disabled";
+};
+
+&spi2 {
+	status = "disabled";
+};
+
+&evb_ports {
+	status = "disabled";
+};
+
+/* Hacks to use uart info without registering tty devices */
+
+&uart1 {
+	#uart-cells = <0>;
+	clocks = <&uart1_fck>;
+	clock-names = "fck";
+	status = "disabled";
+};
+
+&uart2 {
+	#uart-cells = <0>;
+	clocks = <&uart2_fck>;
+	clock-names = "fck";
+	status = "disabled";
+};
+
+&uart4 {
+	#uart-cells = <0>;
+	clocks = <&uart4_fck>;
+	clock-names = "fck";
+	status = "disabled";
+};
+
+&uart5 {
+	#uart-cells = <0>;
+	clocks = <&uart5_fck>;
+	clock-names = "fck";
+	status = "disabled";
+};
+
+/*
+ * This pokes the modulemode bits in the prcm. Normally, this is done by
+ * ti,hwmod on the uart nodes, but since the uart devices are disabled, we
+ * have to do it ourselves.
+ */
+
+&prcm_clocks {
+	uart1_fck: uart1_fck {
+		#clock-cells = <0>;
+		compatible = "ti,gate-clock";
+		clocks = <&dpll_per_m2_div4_ck>;
+		ti,bit-shift = <1>;
+		reg = <0x006c>;
+	};
+
+	uart2_fck: uart2_fck {
+		#clock-cells = <0>;
+		compatible = "ti,gate-clock";
+		clocks = <&dpll_per_m2_div4_ck>;
+		ti,bit-shift = <1>;
+		reg = <0x0070>;
+	};
+
+	uart4_fck: uart4_fck {
+		#clock-cells = <0>;
+		compatible = "ti,gate-clock";
+		clocks = <&dpll_per_m2_div4_ck>;
+		ti,bit-shift = <1>;
+		reg = <0x0078>;
+	};
+
+	uart5_fck: uart5_fck {
+		#clock-cells = <0>;
+		compatible = "ti,gate-clock";
+		clocks = <&dpll_per_m2_div4_ck>;
+		ti,bit-shift = <1>;
+		reg = <0x0038>;
+	};
+};
+
+/ {
+	lms2012_compat: lms2012-compat {
+		pinctrl-names = "default";
+		pinctrl-0 = <&in1_pins>, <&in2_pins>, <&in3_pins>, <&in4_pins>,
+			    <&outA_pins>, <&outB_pins>, <&outC_pins>,
+			    <&outD_pins>, <&spi2_pins>, <&uart1_pins>,
+			    <&uart2_pins>, <&uart4_pins>, <&uart5_pins>;
+
+		compatible = "ev3dev,lms2012-compat";
+
+		/* MOSI, MISO, CLK, CS */
+		spi-gpios = <&gpio2 24 0>, <&gpio2 22 0>, <&gpio2 23 0>,
+			    <&gpio2 25 0>;
+
+		/* IN PIN1, PIN6 x 4, OUT PIN5 x 4, N/C, N/C, BATT_I, BATT_V */
+		adc-channels = <14 12 11 9 15 13 10 8 0 1 2 3 5 4 6 7>;
+
+		/* PIN5, PIN6, BUF_ENA */
+		in1-gpios = <&gpio1 28 0>, <&gpio1 18 0>, <&gpio1 19 0>;
+		in2-gpios = <&gpio1 16 0>, <&gpio0  5 0>, <&gpio0  4 0>;
+		in3-gpios = <&gpio0 12 0>, <&gpio0 13 0>, <&gpio3 19 0>;
+		in4-gpios = <&gpio3 21 0>, <&gpio1 17 0>, <&gpio3 15 0>;
+
+		/* IN1, IN2, IN3, IN4 */
+		in-uarts = <&uart4>, <&uart2>, <&uart1>, <&uart5>;
+
+		/* PIN1, PIN2, PIN5W, PIN5R, PIN6 */
+		outA-gpios = <&gpio2  2 0>, <&gpio2  5 0>, <&gpio1  7 0>,
+			     <&gpio2  3 0>, <&gpio2  4 0>;
+		outB-gpios = <&gpio1 13 0>, <&gpio1 15 0>, <&gpio1  3 0>,
+			     <&gpio1 12 0>, <&gpio0 26 0>;
+		outC-gpios = <&gpio2 12 0>, <&gpio2 13 0>, <&gpio1 29 0>,
+			     <&gpio1 31 0>, <&gpio0 27 0>;
+		outD-gpios = <&gpio2  8 0>, <&gpio2  7 0>, <&gpio2 10 0>,
+			     <&gpio2  9 0>, <&gpio2 11 0>;
+
+		/* OUTA, OUTB, OUTC, OUTD */
+		pwms = <&ehrpwm2 1 0 PWM_POLARITY_INVERTED>,
+		       <&ehrpwm2 0 0 PWM_POLARITY_INVERTED>,
+		       <&ehrpwm1 1 0 PWM_POLARITY_INVERTED>,
+		       <&ehrpwm1 0 0 PWM_POLARITY_INVERTED>;
+	};
+};
