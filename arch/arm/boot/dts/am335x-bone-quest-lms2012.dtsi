@@ -1,0 +1,183 @@
+/*
+ * Copyright (C) 2016 David Lechner <david@lechnology.com>
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License version 2 as
+ * published by the Free Software Foundation.
+ */
+
+&evb_adc_reg {
+	status = "disabled";
+};
+
+&spi2 {
+	status = "disabled";
+};
+
+&evb_ports {
+	status = "disabled";
+};
+
+/* Hacks to use uart info without registering tty devices */
+
+&uart1 {
+	#uart-cells = <0>;
+	clocks = <&uart1_fck>;
+	clock-names = "fck";
+	status = "disabled";
+};
+
+&uart2 {
+	#uart-cells = <0>;
+	clocks = <&uart2_fck>;
+	clock-names = "fck";
+	status = "disabled";
+};
+
+&uart4 {
+	#uart-cells = <0>;
+	clocks = <&uart4_fck>;
+	clock-names = "fck";
+	status = "disabled";
+};
+
+&uart5 {
+	#uart-cells = <0>;
+	clocks = <&uart5_fck>;
+	clock-names = "fck";
+	status = "disabled";
+};
+
+/*
+ * This pokes the modulemode bits in the prcm. Normally, this is done by
+ * ti,hwmod on the uart nodes, but since the uart devices are disabled, we
+ * have to do it ourselves.
+ */
+
+&prcm_clocks {
+	uart1_fck: uart1_fck {
+		#clock-cells = <0>;
+		compatible = "ti,gate-clock";
+		clocks = <&dpll_per_m2_div4_ck>;
+		ti,bit-shift = <1>;
+		reg = <0x006c>;
+	};
+
+	uart2_fck: uart2_fck {
+		#clock-cells = <0>;
+		compatible = "ti,gate-clock";
+		clocks = <&dpll_per_m2_div4_ck>;
+		ti,bit-shift = <1>;
+		reg = <0x0070>;
+	};
+
+	uart4_fck: uart4_fck {
+		#clock-cells = <0>;
+		compatible = "ti,gate-clock";
+		clocks = <&dpll_per_m2_div4_ck>;
+		ti,bit-shift = <1>;
+		reg = <0x0078>;
+	};
+
+	uart5_fck: uart5_fck {
+		#clock-cells = <0>;
+		compatible = "ti,gate-clock";
+		clocks = <&dpll_per_m2_div4_ck>;
+		ti,bit-shift = <1>;
+		reg = <0x0038>;
+	};
+};
+
+/ {
+	/* Dummy devices to handle input pin mux */
+
+	lms2012_compat_in1: lms2012-compat-in1 {
+		compatible = "ev3dev,lms2012-compat-in-port";
+		#in-port-cells = <0>;
+		pinctrl-names = "default", "i2c";
+		pinctrl-0 = <&in1_uart_pins>;
+		pinctrl-1 = <&in1_i2c_pins>;
+	};
+
+	lms2012_compat_in2: lms2012-compat-in2 {
+		compatible = "ev3dev,lms2012-compat-in-port";
+		#in-port-cells = <0>;
+		pinctrl-names = "default", "i2c";
+		pinctrl-0 = <&in2_uart_pins>;
+		pinctrl-1 = <&in2_i2c_pins>;
+	};
+
+	lms2012_compat_in3: lms2012-compat-in3 {
+		compatible = "ev3dev,lms2012-compat-in-port";
+		#in-port-cells = <0>;
+		pinctrl-names = "default", "i2c";
+		pinctrl-0 = <&in3_uart_pins>;
+		pinctrl-1 = <&in3_i2c_pins>;
+	};
+
+	lms2012_compat_in4: lms2012-compat-in4 {
+		compatible = "ev3dev,lms2012-compat-in-port";
+		#in-port-cells = <0>;
+		pinctrl-names = "default", "i2c";
+		pinctrl-0 = <&in4_uart_pins>;
+		pinctrl-1 = <&in4_i2c_pins>;
+	};
+
+	lms2012_compat: lms2012-compat {
+		pinctrl-names = "default";
+		pinctrl-0 = <&in1_pins>, <&in2_pins>, <&in3_pins>, <&in4_pins>,
+			    <&outA_pins>, <&outB_pins>, <&outC_pins>,
+			    <&outD_pins>, <&spi2_pins>;
+
+		compatible = "ev3dev,lms2012-compat";
+
+		/* MOSI, MISO, CLK, CS */
+		spi-gpios = <&gpio2 24 0>, <&gpio2 22 0>, <&gpio2 23 0>,
+			    <&gpio2 25 0>;
+
+		/* IN PIN1, PIN6 x 4, OUT PIN5 x 4, N/C, N/C, BATT_I, BATT_V */
+		adc-channels = <14 12 11 9 15 13 10 8 0 1 2 3 5 4 6 7>;
+
+		/* PIN2 */
+		in1-pin2-gpios = <&gpio1  1 0>;
+		in2-pin2-gpios = <&gpio2  1 0>;
+		in3-pin2-gpios = <&gpio1 14 0>;
+		in4-pin2-gpios = <&gpio1  5 0>;
+
+		/* PIN5, PIN6, BUF_ENA */
+		in1-gpios = <&gpio1 28 0>, <&gpio1 18 0>, <&gpio1 19 0>;
+		in2-gpios = <&gpio0  5 0>, <&gpio0  4 0>, <&gpio1 16 0>;
+		in3-gpios = <&gpio0 13 0>, <&gpio0 12 0>, <&gpio3 19 0>;
+		in4-gpios = <&gpio3 21 0>, <&gpio1 17 0>, <&gpio0 10 0>;
+
+		/* IN1, IN2, IN3, IN4 */
+		in-uarts = <&uart4>, <&uart2>, <&uart1>, <&uart5>;
+
+		/* IN1, IN2, IN3, IN4 */
+		in-i2cs = <3>, <4>, <5>, <6>;
+
+		/* IN1, IN2, IN3, IN4 */
+		in-in-ports = <&lms2012_compat_in1>, <&lms2012_compat_in2>,
+			      <&lms2012_compat_in3>, <&lms2012_compat_in4>;
+
+		/* PIN1, PIN2, PIN5W, PIN5R, PIN6 */
+		outA-gpios = <&gpio2  2 0>, <&gpio2  5 0>, <&gpio1  7 0>,
+			     <&gpio2  3 GPIO_ACTIVE_LOW>,
+			     <&gpio2  4 GPIO_ACTIVE_LOW>;
+		outB-gpios = <&gpio1 13 0>, <&gpio1 15 0>, <&gpio1  3 0>,
+			     <&gpio1 12 GPIO_ACTIVE_LOW>,
+			     <&gpio0 26 GPIO_ACTIVE_LOW>;
+		outC-gpios = <&gpio2 11 0>, <&gpio2 9 0>, <&gpio1 29 0>,
+			     <&gpio1 31 GPIO_ACTIVE_LOW>,
+			     <&gpio0 27 GPIO_ACTIVE_LOW>;
+		outD-gpios = <&gpio2  8 0>, <&gpio2  7 0>, <&gpio2 10 0>,
+			     <&gpio2 13 GPIO_ACTIVE_LOW>,
+			     <&gpio2 12 GPIO_ACTIVE_LOW>;
+
+		pwms = <&ehrpwm2 1 0 PWM_POLARITY_INVERTED>,
+		       <&ehrpwm2 0 0 PWM_POLARITY_INVERTED>,
+		       <&ehrpwm1 1 0 PWM_POLARITY_INVERTED>,
+		       <&ehrpwm1 0 0 PWM_POLARITY_INVERTED>;
+		pwm-names = "outA", "outB", "outC", "outD";
+	};
+};
