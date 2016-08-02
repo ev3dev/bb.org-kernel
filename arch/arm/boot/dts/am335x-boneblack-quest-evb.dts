@@ -90,6 +90,10 @@
 	};
 };
 
+&timer3 {
+	#timer-cells = <0>;
+};
+
 / {
 	lms2012_compat: lms2012-compat {
 		pinctrl-names = "default";
@@ -126,10 +130,12 @@
 		outD-gpios = <&gpio2  8 0>, <&gpio2  7 0>, <&gpio2 10 0>,
 			     <&gpio2  9 0>, <&gpio2 11 0>;
 
-		/* OUTA, OUTB, OUTC, OUTD */
 		pwms = <&ehrpwm2 1 0 PWM_POLARITY_INVERTED>,
 		       <&ehrpwm2 0 0 PWM_POLARITY_INVERTED>,
 		       <&ehrpwm1 1 0 PWM_POLARITY_INVERTED>,
 		       <&ehrpwm1 0 0 PWM_POLARITY_INVERTED>;
+		pwm-names = "outA", "outB", "outC", "outD";
+
+		motor-timer = <&timer3>;
 	};
 };
