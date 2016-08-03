@@ -122,13 +122,13 @@
 
 		/* PIN1, PIN2, PIN5W, PIN5R, PIN6 */
 		outA-gpios = <&gpio2  2 0>, <&gpio2  5 0>, <&gpio1  7 0>,
-			     <&gpio2  3 0>, <&gpio2  4 0>;
+			     <&gpio2  3 0>, <&gpio2  4 GPIO_ACTIVE_LOW>;
 		outB-gpios = <&gpio1 13 0>, <&gpio1 15 0>, <&gpio1  3 0>,
-			     <&gpio1 12 0>, <&gpio0 26 0>;
+			     <&gpio1 12 0>, <&gpio0 26 GPIO_ACTIVE_LOW>;
 		outC-gpios = <&gpio2 12 0>, <&gpio2 13 0>, <&gpio1 29 0>,
-			     <&gpio1 31 0>, <&gpio0 27 0>;
+			     <&gpio1 31 0>, <&gpio0 27 GPIO_ACTIVE_LOW>;
 		outD-gpios = <&gpio2  8 0>, <&gpio2  7 0>, <&gpio2 10 0>,
-			     <&gpio2  9 0>, <&gpio2 11 0>;
+			     <&gpio2  9 0>, <&gpio2 11 GPIO_ACTIVE_LOW>;
 
 		pwms = <&ehrpwm2 1 0 PWM_POLARITY_INVERTED>,
 		       <&ehrpwm2 0 0 PWM_POLARITY_INVERTED>,
