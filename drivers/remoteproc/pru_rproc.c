@@ -700,6 +700,7 @@ static int pru_rproc_probe(struct platform_device *pdev)
 	struct resource *res;
 	int i, ret;
 	const char *mem_names[PRU_MEM_MAX] = { "iram", "control", "debug" };
+	const char *fw_name;
 	u32 mux_sel;
 
 	if (!np) {
@@ -712,8 +713,11 @@ static int pru_rproc_probe(struct platform_device *pdev)
 		dev_err(dev, "missing or incomplete PRU-private data\n");
 		return -ENODEV;
 	}
+	
+	if (of_property_read_string(np, "firmware-name", &fw_name) < 0)
+		fw_name = pdata->fw_name;
 
-	rproc = rproc_alloc(dev, pdev->name, &pru_rproc_ops, pdata->fw_name,
+	rproc = rproc_alloc(dev, pdev->name, &pru_rproc_ops, fw_name,
 			    sizeof(*pru));
 	if (!rproc) {
 		dev_err(dev, "rproc_alloc failed\n");
@@ -735,7 +739,7 @@ static int pru_rproc_probe(struct platform_device *pdev)
 	pru->id = pdata->id;
 	pru->pruss = platform_get_drvdata(ppdev);
 	pru->rproc = rproc;
-	pru->fw_name = pdata->fw_name;
+	pru->fw_name = fw_name;
 	spin_lock_init(&pru->rmw_lock);
 
 	/* XXX: get this from match data if different in the future */
