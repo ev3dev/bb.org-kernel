@@ -719,6 +719,7 @@ static int pru_rproc_probe(struct platform_device *pdev)
 	struct resource *res;
 	int i, ret;
 	const char *mem_names[PRU_MEM_MAX] = { "iram", "control", "debug" };
+	const char *fw_name;
 	bool use_eth = false;
 	u32 mux_sel;
 
@@ -746,8 +747,10 @@ static int pru_rproc_probe(struct platform_device *pdev)
 			use_eth = true;
 	}
 
-	rproc = rproc_alloc(dev, pdev->name, &pru_rproc_ops,
-			    (use_eth ? pdata->eth_fw_name : pdata->fw_name),
+	if (of_property_read_string(np, "firmware-name", &fw_name) < 0)
+		fw_name = use_eth ? pdata->eth_fw_name : pdata->fw_name;
+
+	rproc = rproc_alloc(dev, pdev->name, &pru_rproc_ops, fw_name,
 			    sizeof(*pru));
 	if (!rproc) {
 		dev_err(dev, "rproc_alloc failed\n");
@@ -760,7 +763,7 @@ static int pru_rproc_probe(struct platform_device *pdev)
 	pru->id = pdata->id;
 	pru->pruss = platform_get_drvdata(ppdev);
 	pru->rproc = rproc;
-	pru->fw_name = use_eth ? pdata->eth_fw_name : pdata->fw_name;
+	pru->fw_name = fw_name;
 	pru->use_eth = use_eth;
 	spin_lock_init(&pru->rmw_lock);
 
