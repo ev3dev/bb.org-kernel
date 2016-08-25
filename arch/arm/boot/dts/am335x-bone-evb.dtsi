@@ -90,9 +90,9 @@
 
 		in1 {
 			pinctrl-names = "default", "i2c", "uart";
-			pinctrl-0 = <&in1_pins>;
-			pinctrl-1 = <&in1_i2c_pins>;
-			pinctrl-2 = <&in1_uart_pins>;
+			pinctrl-0 = <&in1_pins>, <&in1_i2c_pins>;
+			pinctrl-1 = <&in1_pins>, <&in1_i2c_pins>;
+			pinctrl-2 = <&in1_pins>, <&in1_uart_pins>;
 
 			compatible = "ev3dev,evb-input-port";
 			io-channels = <&evb_adc 14>, <&evb_adc 15>;
@@ -106,9 +106,9 @@
 
 		in2 {
 			pinctrl-names = "default", "i2c", "uart";
-			pinctrl-0 = <&in2_pins>;
-			pinctrl-1 = <&in2_i2c_pins>;
-			pinctrl-2 = <&in2_uart_pins>;
+			pinctrl-0 = <&in2_pins>, <&in2_i2c_pins>;
+			pinctrl-1 = <&in2_pins>, <&in2_i2c_pins>;
+			pinctrl-2 = <&in2_pins>, <&in2_uart_pins>;
 
 			compatible = "ev3dev,evb-input-port";
 			io-channels = <&evb_adc 12>, <&evb_adc 13>;
@@ -122,9 +122,9 @@
 
 		in3 {
 			pinctrl-names = "default", "i2c", "uart";
-			pinctrl-0 = <&in3_pins>;
-			pinctrl-1 = <&in3_i2c_pins>;
-			pinctrl-2 = <&in3_uart_pins>;
+			pinctrl-0 = <&in3_pins>, <&in3_i2c_pins>;
+			pinctrl-1 = <&in3_pins>, <&in3_i2c_pins>;
+			pinctrl-2 = <&in3_pins>, <&in3_uart_pins>;
 
 			compatible = "ev3dev,evb-input-port";
 			io-channels = <&evb_adc 11>, <&evb_adc 10>;
@@ -138,9 +138,9 @@
 
 		in4 {
 			pinctrl-names = "default", "i2c", "uart";
-			pinctrl-0 = <&in4_pins>;
-			pinctrl-1 = <&in4_i2c_pins>;
-			pinctrl-2 = <&in4_uart_pins>;
+			pinctrl-0 = <&in4_pins>, <&in4_i2c_pins>;
+			pinctrl-1 = <&in4_pins>, <&in4_i2c_pins>;
+			pinctrl-2 = <&in4_pins>, <&in4_uart_pins>;
 
 			compatible = "ev3dev,evb-input-port";
 			io-channels = <&evb_adc 9>, <&evb_adc 8>;
@@ -261,16 +261,11 @@
 			BONE_P9_12 (PIN_INPUT  | MUX_MODE7) /* gpio1[28] - DIGIA0 */
 			BONE_P9_14 (PIN_INPUT  | MUX_MODE7) /* gpio1[18] - DIGIA1 */
 			BONE_P9_16 (PIN_OUTPUT | MUX_MODE7) /* gpio1[19] - BUFDISA */
-			BONE_P9_11 (PIN_INPUT  | MUX_MODE6) /* uart4_rxd - RXINA */
-			BONE_P9_13 (PIN_OUTPUT | MUX_MODE7) /* gpio0[31] - TXINA */
 		>;
 	};
 
 	in1_i2c_pins: pinmux_in1_i2c_pins {
 		pinctrl-single,pins = <
-			BONE_P9_12 (PIN_INPUT  | MUX_MODE7) /* gpio1[28] - DIGIA0 */
-			BONE_P9_14 (PIN_INPUT  | MUX_MODE7) /* gpio1[18] - DIGIA1 */
-			BONE_P9_16 (PIN_OUTPUT | MUX_MODE7) /* gpio1[19] - BUFDISA */
 			BONE_P9_11 (PIN_INPUT  | MUX_MODE6) /* uart4_rxd - RXINA */
 			BONE_P9_13 (PIN_OUTPUT | MUX_MODE7) /* gpio0[31] - TXINA */
 		>;
@@ -278,9 +273,6 @@
 
 	in1_uart_pins: pinmux_in1_uart_pins {
 		pinctrl-single,pins = <
-			BONE_P9_12 (PIN_INPUT  | MUX_MODE7) /* gpio1[28] - DIGIA0 */
-			BONE_P9_14 (PIN_INPUT  | MUX_MODE7) /* gpio1[18] - DIGIA1 */
-			BONE_P9_16 (PIN_OUTPUT | MUX_MODE7) /* gpio1[19] - BUFDISA */
 			BONE_P9_11 (PIN_INPUT  | MUX_MODE6) /* uart4_rxd - RXINA */
 			BONE_P9_13 (PIN_OUTPUT | MUX_MODE6) /* uart4_txd - TXINA */
 		>;
@@ -293,16 +285,11 @@
 			BONE_P9_15 (PIN_INPUT  | MUX_MODE7) /* gpio1[16] - DIGIB0 */
 			BONE_P9_17 (PIN_INPUT  | MUX_MODE7) /* gpio0[5]  - DIGIB1 */
 			BONE_P9_18 (PIN_OUTPUT | MUX_MODE7) /* gpio0[5]  - BUFDISB */
-			BONE_P9_22 (PIN_INPUT  | MUX_MODE1) /* uart2_rxd - RXINB */
-			BONE_P9_21 (PIN_OUTPUT | MUX_MODE7) /* gpio0[3]  - TXINB */
 		>;
 	};
 
 	in2_i2c_pins: pinmux_in2_i2c_pins {
 		pinctrl-single,pins = <
-			BONE_P9_15 (PIN_INPUT  | MUX_MODE7) /* gpio1[16] - DIGIB0 */
-			BONE_P9_17 (PIN_INPUT  | MUX_MODE7) /* gpio0[5]  - DIGIB1 */
-			BONE_P9_18 (PIN_OUTPUT | MUX_MODE7) /* gpio0[5]  - BUFDISB */
 			BONE_P9_22 (PIN_INPUT  | MUX_MODE1) /* uart2_rxd - RXINB */
 			BONE_P9_21 (PIN_OUTPUT | MUX_MODE7) /* gpio0[3]  - TXINB */
 		>;
@@ -310,9 +297,6 @@
 
 	in2_uart_pins: pinmux_in2_uart_pins {
 		pinctrl-single,pins = <
-			BONE_P9_15 (PIN_INPUT  | MUX_MODE7) /* gpio1[16] - DIGIB0 */
-			BONE_P9_17 (PIN_INPUT  | MUX_MODE7) /* gpio0[5]  - DIGIB1 */
-			BONE_P9_18 (PIN_OUTPUT | MUX_MODE7) /* gpio0[5]  - BUFDISB */
 			BONE_P9_22 (PIN_INPUT  | MUX_MODE1) /* uart2_rxd - RXINB */
 			BONE_P9_21 (PIN_OUTPUT | MUX_MODE1) /* uart2_txd - TXINB */
 		>;
@@ -325,16 +309,11 @@
 			BONE_P9_20 (PIN_INPUT  | MUX_MODE7) /* gpio0[12] - DIGIC0 */
 			BONE_P9_19 (PIN_INPUT  | MUX_MODE7) /* gpio0[13] - DIGIC1 */
 			BONE_P9_27 (PIN_OUTPUT | MUX_MODE7) /* gpio3[19] - BUFDISC */
-			BONE_P9_26 (PIN_INPUT  | MUX_MODE0) /* uart1_rxd - RXINC */
-			BONE_P9_24 (PIN_OUTPUT | MUX_MODE7) /* gpio0[15] - TXINC */
 		>;
 	};
 
 	in3_i2c_pins: pinmux_in3_i2c_pins {
 		pinctrl-single,pins = <
-			BONE_P9_20 (PIN_INPUT  | MUX_MODE7) /* gpio0[12] - DIGIC0 */
-			BONE_P9_19 (PIN_INPUT  | MUX_MODE7) /* gpio0[13] - DIGIC1 */
-			BONE_P9_27 (PIN_OUTPUT | MUX_MODE7) /* gpio3[19] - BUFDISC */
 			BONE_P9_26 (PIN_INPUT  | MUX_MODE0) /* uart1_rxd - RXINC */
 			BONE_P9_24 (PIN_OUTPUT | MUX_MODE7) /* gpio0[15] - TXINC */
 		>;
@@ -342,9 +321,6 @@
 
 	in3_uart_pins: pinmux_in3_uart_pins {
 		pinctrl-single,pins = <
-			BONE_P9_20 (PIN_INPUT  | MUX_MODE7) /* gpio0[12] - DIGIC0 */
-			BONE_P9_19 (PIN_INPUT  | MUX_MODE7) /* gpio0[13] - DIGIC1 */
-			BONE_P9_27 (PIN_OUTPUT | MUX_MODE7) /* gpio3[19] - BUFDISC */
 			BONE_P9_26 (PIN_INPUT  | MUX_MODE0) /* uart1_rxd - RXINC */
 			BONE_P9_24 (PIN_OUTPUT | MUX_MODE0) /* uart1_txd - TXINC */
 		>;
@@ -357,16 +333,11 @@
 			BONE_P9_25 (PIN_INPUT  | MUX_MODE7) /* gpio3[21] - DIGID0 */
 			BONE_P9_23 (PIN_INPUT  | MUX_MODE7) /* gpio1[17] - DIGID1 */
 			BONE_P9_29 (PIN_OUTPUT | MUX_MODE7) /* gpio3[15] - BUFDISD */
-			BONE_P8_38 (PIN_OUTPUT | MUX_MODE4) /* uart5_rxd - RXIND */
-			BONE_P8_37 (PIN_INPUT  | MUX_MODE7) /* gpio2[14] - TXIND */
 		>;
 	};
 
 	in4_i2c_pins: pinmux_in4_i2c_pins {
 		pinctrl-single,pins = <
-			BONE_P9_25 (PIN_INPUT  | MUX_MODE7) /* gpio3[21] - DIGID0 */
-			BONE_P9_23 (PIN_INPUT  | MUX_MODE7) /* gpio1[17] - DIGID1 */
-			BONE_P9_29 (PIN_OUTPUT | MUX_MODE7) /* gpio3[15] - BUFDISD */
 			BONE_P8_38 (PIN_OUTPUT | MUX_MODE4) /* uart5_rxd - RXIND */
 			BONE_P8_37 (PIN_INPUT  | MUX_MODE7) /* gpio2[14] - TXIND */
 		>;
@@ -374,9 +345,6 @@
 
 	in4_uart_pins: pinmux_in4_uart_pins {
 		pinctrl-single,pins = <
-			BONE_P9_25 (PIN_INPUT  | MUX_MODE7) /* gpio3[21] - DIGID0 */
-			BONE_P9_23 (PIN_INPUT  | MUX_MODE7) /* gpio1[17] - DIGID1 */
-			BONE_P9_29 (PIN_OUTPUT | MUX_MODE7) /* gpio3[15] - BUFDISD */
 			BONE_P8_38 (PIN_OUTPUT | MUX_MODE4) /* uart5_rxd - RXIND */
 			BONE_P8_37 (PIN_INPUT  | MUX_MODE4) /* uart5_txd - TXIND */
 		>;
