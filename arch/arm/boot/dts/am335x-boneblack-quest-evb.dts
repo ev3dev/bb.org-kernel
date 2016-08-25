@@ -95,12 +95,45 @@
 };
 
 / {
+	/* Dummy devices to handle input pin mux */
+
+	lms2012_compat_in1: lms2012-compat-in1 {
+		compatible = "ev3dev,lms2012-compat-in-port";
+		#in-port-cells = <0>;
+		pinctrl-names = "default", "i2c";
+		pinctrl-0 = <&in1_uart_pins>;
+		pinctrl-1 = <&in1_i2c_pins>;
+	};
+
+	lms2012_compat_in2: lms2012-compat-in2 {
+		compatible = "ev3dev,lms2012-compat-in-port";
+		#in-port-cells = <0>;
+		pinctrl-names = "default", "i2c";
+		pinctrl-0 = <&in2_uart_pins>;
+		pinctrl-1 = <&in2_i2c_pins>;
+	};
+
+	lms2012_compat_in3: lms2012-compat-in3 {
+		compatible = "ev3dev,lms2012-compat-in-port";
+		#in-port-cells = <0>;
+		pinctrl-names = "default", "i2c";
+		pinctrl-0 = <&in3_uart_pins>;
+		pinctrl-1 = <&in3_i2c_pins>;
+	};
+
+	lms2012_compat_in4: lms2012-compat-in4 {
+		compatible = "ev3dev,lms2012-compat-in-port";
+		#in-port-cells = <0>;
+		pinctrl-names = "default", "i2c";
+		pinctrl-0 = <&in4_uart_pins>;
+		pinctrl-1 = <&in4_i2c_pins>;
+	};
+
 	lms2012_compat: lms2012-compat {
 		pinctrl-names = "default";
 		pinctrl-0 = <&in1_pins>, <&in2_pins>, <&in3_pins>, <&in4_pins>,
 			    <&outA_pins>, <&outB_pins>, <&outC_pins>,
-			    <&outD_pins>, <&spi2_pins>, <&uart1_pins>,
-			    <&uart2_pins>, <&uart4_pins>, <&uart5_pins>;
+			    <&outD_pins>, <&spi2_pins>;
 
 		compatible = "ev3dev,lms2012-compat";
 
@@ -119,6 +152,13 @@
 
 		/* IN1, IN2, IN3, IN4 */
 		in-uarts = <&uart4>, <&uart2>, <&uart1>, <&uart5>;
+
+		/* IN1, IN2, IN3, IN4 */
+		in-i2cs = <3>, <4>, <5>, <6>;
+
+		/* IN1, IN2, IN3, IN4 */
+		in-in-ports = <&lms2012_compat_in1>, <&lms2012_compat_in2>,
+			      <&lms2012_compat_in3>, <&lms2012_compat_in4>;
 
 		/* PIN1, PIN2, PIN5W, PIN5R, PIN6 */
 		outA-gpios = <&gpio2  2 0>, <&gpio2  5 0>, <&gpio1  7 0>,
