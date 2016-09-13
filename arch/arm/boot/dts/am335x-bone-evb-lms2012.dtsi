@@ -6,8 +6,6 @@
  * published by the Free Software Foundation.
  */
 
-#include "am335x-boneblack-evb.dts"
-
 &evb_adc_reg {
 	status = "disabled";
 };
