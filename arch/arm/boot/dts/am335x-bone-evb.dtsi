@@ -396,7 +396,7 @@
 			BONE_P8_43 (PIN_OUTPUT | MUX_MODE7) /* gpio2[8]  - MDIN0 */
 			BONE_P8_46 (PIN_OUTPUT | MUX_MODE7) /* gpio2[7]  - MDIN1 */
 			BONE_P8_41 (PIN_OUTPUT | MUX_MODE7) /* gpio2[10] - DETD  */
-			BONE_P8_44 (PIN_INPUT  | MUX_MODE7) /* gpio2[0]  - INTD  */
+			BONE_P8_44 (PIN_INPUT  | MUX_MODE7) /* gpio2[9]  - INTD  */
 			BONE_P8_42 (PIN_INPUT  | MUX_MODE7) /* gpio2[11] - DIRD  */
 			BONE_P8_36 (PIN_OUTPUT | MUX_MODE2) /* ehrpwm1A  - MDPWM */
 		>;
