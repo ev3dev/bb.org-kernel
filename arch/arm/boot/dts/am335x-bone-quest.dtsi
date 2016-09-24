@@ -236,6 +236,19 @@
 			linux,default-trigger = "none";
 		};
 	};
+
+	backlight {
+		pinctrl-names = "default";
+		pinctrl-0 = <&backlight_pins>;
+
+		compatible = "pwm-backlight";
+		pwms = <&ecap0 0 5000000 0>;
+
+		brightness-levels = <0 4 8 16 32 64 128 255>;
+		default-brightness-level = <6>;
+
+		power-supply = <&vmmcsd_fixed>;
+	};
 };
 
 &am33xx_pinmux {
@@ -404,6 +417,18 @@
 		>;
 	};
 
+	backlight_pins: pinmux_backlight_pins {
+		pinctrl-single,pins = <
+			/*
+			 * The *B pin is actually not used, but it is physically
+			 * connected to the *A pin, so must be configured to not
+			 * interfere.
+			 */
+			BONE_P9_42A (PIN_OUTPUT | MUX_MODE0) /* ecap0_pwm0 - BLT_PWM */
+			BONE_P9_42B (PIN_OUTPUT | MUX_MODE7) /* gpio3[18]  - BLT_PWM */
+		>;
+	};
+
 	/* ADC */
 
 	spi2_pins: pinmux_spi2_pins {
@@ -496,7 +521,7 @@
 };
 
 &ecap0 {
-	/* Used for sound PWM */
+	/* Used for backlight PWM */
 	status = "okay";
 };
 
