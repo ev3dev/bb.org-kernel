@@ -1,7 +1,7 @@
 VERSION = 4
 PATCHLEVEL = 4
 SUBLEVEL = 24
-EXTRAVERSION =
+EXTRAVERSION = -ti-rt-r55-16-ev3dev-bb.org
 NAME = Blurry Fish Butt
 
 # *DOCUMENTATION*
