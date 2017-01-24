@@ -162,7 +162,7 @@
 			pin1-gpios = <&gpio2 2 0>;
 			pin2-gpios = <&gpio2 5 0>;
 			pin5-det-gpios = <&gpio1 7 0>;
-			pin5-gpios = <&gpio2 3 0>;
+			pin5-gpios = <&gpio2 3 GPIO_ACTIVE_LOW>;
 			pin6-gpios = <&gpio2 4 GPIO_ACTIVE_LOW>;
 			pwms = <&ehrpwm2 1 0 PWM_POLARITY_INVERTED>;
 			pwm-names = "motor";
@@ -178,7 +178,7 @@
 			pin1-gpios = <&gpio1 13 0>;
 			pin2-gpios = <&gpio1 15 0>;
 			pin5-det-gpios = <&gpio1 3 0>;
-			pin5-gpios = <&gpio1 12 0>;
+			pin5-gpios = <&gpio1 12 GPIO_ACTIVE_LOW>;
 			pin6-gpios = <&gpio0 26 GPIO_ACTIVE_LOW>;
 			pwms = <&ehrpwm2 0 0 PWM_POLARITY_INVERTED>;
 			pwm-names = "motor";
@@ -194,7 +194,7 @@
 			pin1-gpios = <&gpio2 12 0>;
 			pin2-gpios = <&gpio2 13 0>;
 			pin5-det-gpios = <&gpio1 29 0>;
-			pin5-gpios = <&gpio1 31 0>;
+			pin5-gpios = <&gpio1 31 GPIO_ACTIVE_LOW>;
 			pin6-gpios = <&gpio0 27 GPIO_ACTIVE_LOW>;
 			pwms = <&ehrpwm1 1 0 PWM_POLARITY_INVERTED>;
 			pwm-names = "motor";
@@ -210,7 +210,7 @@
 			pin1-gpios = <&gpio2 8 0>;
 			pin2-gpios = <&gpio2 7 0>;
 			pin5-det-gpios = <&gpio2 10 0>;
-			pin5-gpios = <&gpio2 9 0>;
+			pin5-gpios = <&gpio2 9 GPIO_ACTIVE_LOW>;
 			pin6-gpios = <&gpio2 11 GPIO_ACTIVE_LOW>;
 			pwms = <&ehrpwm1 0 0 PWM_POLARITY_INVERTED>;
 			pwm-names = "motor";
