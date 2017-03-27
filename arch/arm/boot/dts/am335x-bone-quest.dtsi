@@ -13,7 +13,6 @@
 
 #include "am33xx.dtsi"
 #include "am335x-bone-common-no-capemgr.dtsi"
-#include "am33xx-pruss-rproc.dtsi"
 
 #include <dt-bindings/board/am335x-bbw-bbb-base.h>
 #include <dt-bindings/pinctrl/am33xx.h>
