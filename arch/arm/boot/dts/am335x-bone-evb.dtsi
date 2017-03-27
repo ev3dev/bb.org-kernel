@@ -476,6 +476,9 @@
 
 		rotate = <270>;
 		spi-max-frequency = <12000000>;
+		/* 2.2" diagonal */
+		phys-width = <44>;
+		phys-height = <35>;
 		bgr;
 		reset-gpios = <&gpio0 8 0>;
 		dc-gpios = <&gpio0 9 0>;
