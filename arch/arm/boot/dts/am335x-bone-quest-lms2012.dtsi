@@ -18,76 +18,6 @@
 	status = "disabled";
 };
 
-/* Hacks to use uart info without registering tty devices */
-
-&uart1 {
-	#uart-cells = <0>;
-	clocks = <&uart1_fck>;
-	clock-names = "fck";
-	status = "disabled";
-};
-
-&uart2 {
-	#uart-cells = <0>;
-	clocks = <&uart2_fck>;
-	clock-names = "fck";
-	status = "disabled";
-};
-
-&uart4 {
-	#uart-cells = <0>;
-	clocks = <&uart4_fck>;
-	clock-names = "fck";
-	status = "disabled";
-};
-
-&uart5 {
-	#uart-cells = <0>;
-	clocks = <&uart5_fck>;
-	clock-names = "fck";
-	status = "disabled";
-};
-
-/*
- * This pokes the modulemode bits in the prcm. Normally, this is done by
- * ti,hwmod on the uart nodes, but since the uart devices are disabled, we
- * have to do it ourselves.
- */
-
-&prcm_clocks {
-	uart1_fck: uart1_fck {
-		#clock-cells = <0>;
-		compatible = "ti,gate-clock";
-		clocks = <&dpll_per_m2_div4_ck>;
-		ti,bit-shift = <1>;
-		reg = <0x006c>;
-	};
-
-	uart2_fck: uart2_fck {
-		#clock-cells = <0>;
-		compatible = "ti,gate-clock";
-		clocks = <&dpll_per_m2_div4_ck>;
-		ti,bit-shift = <1>;
-		reg = <0x0070>;
-	};
-
-	uart4_fck: uart4_fck {
-		#clock-cells = <0>;
-		compatible = "ti,gate-clock";
-		clocks = <&dpll_per_m2_div4_ck>;
-		ti,bit-shift = <1>;
-		reg = <0x0078>;
-	};
-
-	uart5_fck: uart5_fck {
-		#clock-cells = <0>;
-		compatible = "ti,gate-clock";
-		clocks = <&dpll_per_m2_div4_ck>;
-		ti,bit-shift = <1>;
-		reg = <0x0038>;
-	};
-};
-
 / {
 	/* Dummy devices to handle input pin mux */
 
@@ -151,7 +81,7 @@
 		in4-gpios = <&gpio3 21 0>, <&gpio1 17 0>, <&gpio0 10 0>;
 
 		/* IN1, IN2, IN3, IN4 */
-		in-uarts = <&uart4>, <&uart2>, <&uart1>, <&uart5>;
+		in-tty-names = "ttyS4", "ttyS2", "ttyS1", "ttyS5";
 
 		/* IN1, IN2, IN3, IN4 */
 		in-i2cs = <3>, <4>, <5>, <6>;
