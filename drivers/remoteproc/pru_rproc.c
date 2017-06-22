@@ -733,7 +733,7 @@ static int pru_rproc_probe(struct platform_device *pdev)
 	 * remote-processor as part of its state machine either through
 	 * the remoteproc sysfs interface or through the equivalent kernel API
 	 */
-	rproc->auto_boot = false;
+	rproc->auto_boot = true; /* current ev3dev firmware needs autoboot */
 
 	pru = rproc->priv;
 	pru->id = pdata->id;
