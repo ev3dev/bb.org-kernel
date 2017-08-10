@@ -766,6 +766,17 @@ static int get_musb_port_mode(struct device *dev)
 	}
 }
 
+static struct musb_fifo_cfg ev3dev_cfg[] = {
+	{ .hw_ep_num = 1, .style = FIFO_TX,   .maxpacket = 1024, },
+	{ .hw_ep_num = 1, .style = FIFO_RX,   .maxpacket = 1024, },
+	{ .hw_ep_num = 2, .style = FIFO_TX,   .maxpacket = 64 ,  },
+	{ .hw_ep_num = 2, .style = FIFO_RX,   .maxpacket = 64 ,  },
+	{ .hw_ep_num = 3, .style = FIFO_TX,   .maxpacket = 1024, },
+	/* TODO: what about ep3 FIFO_RX? */
+	{ .hw_ep_num = 4, .style = FIFO_RXTX, .maxpacket = 128,  },
+};
+
+
 static int dsps_create_musb_pdev(struct dsps_glue *glue,
 		struct platform_device *parent)
 {
@@ -821,6 +832,11 @@ static int dsps_create_musb_pdev(struct dsps_glue *glue,
 	}
 	pdata.config = config;
 	pdata.platform_ops = &dsps_ops;
+
+	if (of_property_read_bool(dn, "ev3dev,lms2012-compat")) {
+		config->fifo_cfg = ev3dev_cfg;
+		config->fifo_cfg_size = ARRAY_SIZE(ev3dev_cfg);
+	}
 
 	config->num_eps = get_int_prop(dn, "mentor,num-eps");
 	config->ram_bits = get_int_prop(dn, "mentor,ram-bits");
