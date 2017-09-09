@@ -211,10 +211,9 @@
 		};
 	};
 
-	board {
-		compatible = "ev3dev,bone-board";
-		nvmem-cells = <&baseboard_data>;
-		nvmem-cell-names = "eeprom";
+	cape {
+		compatible = "ev3dev,bone-cape";
+		model = "QuestCape";
 	};
 
 	leds {
