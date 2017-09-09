@@ -226,10 +226,10 @@
 		pwm-names = "speaker";
 	};
 
-	evb-system-info {
-		compatible = "ev3dev,evb-system-info";
+	board {
+		compatible = "ev3dev,bone-board";
 		nvmem-cells = <&baseboard_data>;
-		nvmem-cell-names = "baseboard";
+		nvmem-cell-names = "eeprom";
 	};
 };
 
