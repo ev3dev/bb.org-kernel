@@ -22,6 +22,13 @@
 		stdout-path = &uart0;
 	};
 
+
+	board {
+		compatible = "ev3dev,bone-board";
+		nvmem-cells = <&baseboard_data>;
+		nvmem-cell-names = "eeprom";
+	};
+
 	leds {
 		pinctrl-names = "default";
 		pinctrl-0 = <&user_leds_s0>;
