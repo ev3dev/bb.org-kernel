@@ -76,7 +76,7 @@
 	};
 
 	evb_ports: evb-ports {
-		compatible = "ev3dev,evb-ports";
+		compatible = "ev3dev,ev3-ports";
 
 		in1 {
 			pinctrl-names = "default", "i2c", "uart";
@@ -84,7 +84,7 @@
 			pinctrl-1 = <&in1_pins>, <&in1_i2c_pins>;
 			pinctrl-2 = <&in1_pins>, <&in1_uart_pins>;
 
-			compatible = "ev3dev,evb-input-port";
+			compatible = "ev3dev,ev3-input-port";
 			io-channels = <&evb_adc 14>, <&evb_adc 15>;
 			io-channel-names = "pin1", "pin6";
 			pin2-gpios = <&gpio1 1 0>;
@@ -101,7 +101,7 @@
 			pinctrl-1 = <&in2_pins>, <&in2_i2c_pins>;
 			pinctrl-2 = <&in2_pins>, <&in2_uart_pins>;
 
-			compatible = "ev3dev,evb-input-port";
+			compatible = "ev3dev,ev3-input-port";
 			io-channels = <&evb_adc 12>, <&evb_adc 13>;
 			io-channel-names = "pin1", "pin6";
 			pin2-gpios = <&gpio2 1 0>;
@@ -118,7 +118,7 @@
 			pinctrl-1 = <&in3_pins>, <&in3_i2c_pins>;
 			pinctrl-2 = <&in3_pins>, <&in3_uart_pins>;
 
-			compatible = "ev3dev,evb-input-port";
+			compatible = "ev3dev,ev3-input-port";
 			io-channels = <&evb_adc 11>, <&evb_adc 10>;
 			io-channel-names = "pin1", "pin6";
 			pin2-gpios = <&gpio1 14 0>;
@@ -135,7 +135,7 @@
 			pinctrl-1 = <&in4_pins>, <&in4_i2c_pins>;
 			pinctrl-2 = <&in4_pins>, <&in4_uart_pins>;
 
-			compatible = "ev3dev,evb-input-port";
+			compatible = "ev3dev,ev3-input-port";
 			io-channels = <&evb_adc 9>, <&evb_adc 8>;
 			io-channel-names = "pin1", "pin6";
 			pin2-gpios = <&gpio1 5 0>;
@@ -150,64 +150,84 @@
 			pinctrl-names = "default";
 			pinctrl-0 = <&outA_pins>;
 
-			compatible = "ev3dev,evb-output-port";
+			compatible = "ev3dev,ev3-output-port";
 			io-channels = <&evb_adc 0>;
 			io-channel-names = "pin5";
 			pin1-gpios = <&gpio2 2 0>;
 			pin2-gpios = <&gpio2 5 0>;
 			pin5-det-gpios = <&gpio1 7 0>;
-			pin5-gpios = <&gpio2 3 0>;
+			pin5-gpios = <&gpio2 3 GPIO_ACTIVE_LOW>;
 			pin6-gpios = <&gpio2 4 GPIO_ACTIVE_LOW>;
 			pwms = <&ehrpwm2 1 75758 PWM_POLARITY_INVERTED>;
 			pwm-names = "motor";
+
+			motor {
+				io-channels = <&tacho 0>, <&tacho 1>;
+				io-channel-names = "count", "rate";
+			};
 		};
 
 		outB {
 			pinctrl-names = "default";
 			pinctrl-0 = <&outB_pins>;
 
-			compatible = "ev3dev,evb-output-port";
+			compatible = "ev3dev,ev3-output-port";
 			io-channels = <&evb_adc 1>;
 			io-channel-names = "pin5";
 			pin1-gpios = <&gpio1 13 0>;
 			pin2-gpios = <&gpio1 15 0>;
 			pin5-det-gpios = <&gpio1 3 0>;
-			pin5-gpios = <&gpio1 12 0>;
+			pin5-gpios = <&gpio1 12 GPIO_ACTIVE_LOW>;
 			pin6-gpios = <&gpio0 26 GPIO_ACTIVE_LOW>;
 			pwms = <&ehrpwm2 0 75758 PWM_POLARITY_INVERTED>;
 			pwm-names = "motor";
+
+			motor {
+				io-channels = <&tacho 2>, <&tacho 3>;
+				io-channel-names = "count", "rate";
+			};
 		};
 
 		outC {
 			pinctrl-names = "default";
 			pinctrl-0 = <&outC_pins>;
 
-			compatible = "ev3dev,evb-output-port";
+			compatible = "ev3dev,ev3-output-port";
 			io-channels = <&evb_adc 2>;
 			io-channel-names = "pin5";
 			pin1-gpios = <&gpio2 11 0>;
 			pin2-gpios = <&gpio2 9 0>;
 			pin5-det-gpios = <&gpio1 29 0>;
-			pin5-gpios = <&gpio1 31 0>;
+			pin5-gpios = <&gpio1 31 GPIO_ACTIVE_LOW>;
 			pin6-gpios = <&gpio0 27 GPIO_ACTIVE_LOW>;
 			pwms = <&ehrpwm1 1 75758 PWM_POLARITY_INVERTED>;
 			pwm-names = "motor";
+
+			motor {
+				io-channels = <&tacho 4>, <&tacho 5>;
+				io-channel-names = "count", "rate";
+			};
 		};
 
 		outD {
 			pinctrl-names = "default";
 			pinctrl-0 = <&outD_pins>;
 
-			compatible = "ev3dev,evb-output-port";
+			compatible = "ev3dev,ev3-output-port";
 			io-channels = <&evb_adc 3>;
 			io-channel-names = "pin5";
 			pin1-gpios = <&gpio2 8 0>;
 			pin2-gpios = <&gpio2 7 0>;
 			pin5-det-gpios = <&gpio2 10 0>;
-			pin5-gpios = <&gpio2 13 0>;
+			pin5-gpios = <&gpio2 13 GPIO_ACTIVE_LOW>;
 			pin6-gpios = <&gpio2 12 GPIO_ACTIVE_LOW>;
 			pwms = <&ehrpwm1 0 75758 PWM_POLARITY_INVERTED>;
 			pwm-names = "motor";
+
+			motor {
+				io-channels = <&tacho 6>, <&tacho 7>;
+				io-channel-names = "count", "rate";
+			};
 		};
 	};
 
@@ -549,8 +569,34 @@
 	status = "okay";
 };
 
+&pruss_soc_bus {
+	status = "okay";
+};
+
+&pruss {
+	status = "okay";
+};
+
 &pru0 {
 	firmware-name = "quest-pru0.fw";
+
+	vdevs {
+		#address-cells = <1>;
+		#size-cells = <0>;
+
+		rpmsg@0 {
+			compatible = "virtio,rpmsg";
+			reg = <0>;
+			#address-cells = <1>;
+			#size-cells = <0>;
+
+			tacho: ev3-tacho-rpmsg@0 {
+				compatible = "ev3dev,ev3-pru-tacho";
+				reg = <0>;
+				#io-channel-cells = <1>;
+			};
+		};
+	};
 };
 
 &pru1 {
