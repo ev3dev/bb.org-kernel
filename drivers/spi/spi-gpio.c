@@ -135,6 +135,9 @@ static inline int getmiso(const struct spi_device *spi)
 
 #include "spi-bitbang-txrx.h"
 
+#include <linux/delay.h>
+static void spi_gpio_chipselect(struct spi_device *spi, int is_active);
+
 /*
  * These functions can leverage inline expansion of GPIO calls to shrink
  * costs for a txrx bit, often by factors of around ten (by instruction
@@ -152,7 +155,19 @@ static inline int getmiso(const struct spi_device *spi)
 static u32 spi_gpio_txrx_word_mode0(struct spi_device *spi,
 		unsigned nsecs, u32 word, u8 bits)
 {
-	return bitbang_txrx_be_cpha0(spi, nsecs, 0, 0, word, bits);
+	u32 ret = bitbang_txrx_be_cpha0(spi, nsecs, 0, 0, word, bits);
+
+	/*
+	 * ev3dev: hack to toggle chip select after each word as required
+	 * by TI ADS7958 chip. we can get away with this because the ADC is
+	 * the only thing on this SPI bus.
+	 */
+	ndelay(20);
+	spi_gpio_chipselect(spi, false);
+	ndelay(20);
+	spi_gpio_chipselect(spi, true);
+
+	return ret;
 }
 
 static u32 spi_gpio_txrx_word_mode1(struct spi_device *spi,
