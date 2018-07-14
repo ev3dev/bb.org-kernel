@@ -165,6 +165,11 @@
 			pin6-gpios = <&gpio2 4 GPIO_ACTIVE_LOW>;
 			pwms = <&ehrpwm2 1 75758 PWM_POLARITY_INVERTED>;
 			pwm-names = "motor";
+
+			motor {
+				io-channels = <&tacho 0>, <&tacho 1>;
+				io-channel-names = "count", "rate";
+			};
 		};
 
 		outB {
@@ -181,6 +186,11 @@
 			pin6-gpios = <&gpio0 26 GPIO_ACTIVE_LOW>;
 			pwms = <&ehrpwm2 0 75758 PWM_POLARITY_INVERTED>;
 			pwm-names = "motor";
+
+			motor {
+				io-channels = <&tacho 2>, <&tacho 3>;
+				io-channel-names = "count", "rate";
+			};
 		};
 
 		outC {
@@ -197,6 +207,11 @@
 			pin6-gpios = <&gpio0 27 GPIO_ACTIVE_LOW>;
 			pwms = <&ehrpwm1 1 75758 PWM_POLARITY_INVERTED>;
 			pwm-names = "motor";
+
+			motor {
+				io-channels = <&tacho 4>, <&tacho 5>;
+				io-channel-names = "count", "rate";
+			};
 		};
 
 		outD {
@@ -213,6 +228,11 @@
 			pin6-gpios = <&gpio2 11 GPIO_ACTIVE_LOW>;
 			pwms = <&ehrpwm1 0 75758 PWM_POLARITY_INVERTED>;
 			pwm-names = "motor";
+
+			motor {
+				io-channels = <&tacho 6>, <&tacho 7>;
+				io-channel-names = "count", "rate";
+			};
 		};
 	};
 
@@ -534,8 +554,34 @@
 	status = "okay";
 };
 
+&pruss_soc_bus {
+	status = "okay";
+};
+
+&pruss {
+	status = "okay";
+};
+
 &pru0 {
 	firmware-name = "evb-pru0.fw";
+
+	vdevs {
+		#address-cells = <1>;
+		#size-cells = <0>;
+
+		rpmsg@0 {
+			compatible = "virtio,rpmsg";
+			reg = <0>;
+			#address-cells = <1>;
+			#size-cells = <0>;
+
+			tacho: ev3-tacho-rpmsg@0 {
+				compatible = "ev3dev,ev3-pru-tacho";
+				reg = <0>;
+				#io-channel-cells = <1>;
+			};
+		};
+	};
 };
 
 &pru1 {
